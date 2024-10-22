@@ -1,0 +1,5 @@
+{"log":
+ [{"message":
+   ".> LEAN_PATH=././.lake/build/lib DYLD_LIBRARY_PATH=././.lake/build/lib:/Users/nico/.elan/toolchains/leanprover--lean4---v4.11.0/lib/lean:/Users/nico/.elan/toolchains/leanprover--lean4---v4.11.0/lib /Users/nico/.elan/toolchains/leanprover--lean4---v4.11.0/bin/lean ././././Maze/Solver.lean -R ./././. -o ././.lake/build/lib/Maze/Solver.olean -i ././.lake/build/lib/Maze/Solver.ilean -c ././.lake/build/ir/Maze/Solver.c --json",
+   "level": "trace"}],
+ "depHash": "15058098471747832457"}

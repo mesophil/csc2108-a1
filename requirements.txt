@@ -1,0 +1,4 @@
+boto==2.49.0
+python-sat==1.8.dev13
+six==1.16.0
+z3-solver==4.13.2.0
