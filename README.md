@@ -28,6 +28,14 @@
 └── translated.txt
 ```
 
+**venv**
+
+Implementation uses Python 3.12.7.
+
+Virtual environment requirements are in `requirements.txt`.
+
+The only actual package required is z3-solver (no need to setup a venv if this is already installed globally)
+
 **Q1A Translation**
 
 Files: q1a.py, P1a_result.txt
@@ -36,9 +44,17 @@ Data files: google-10000-english.txt, encrypted.txt
 
 Auxiliary files: mapping.txt, translated.txt
 
+Execute command:
+
+`python3 q1a.py`
+
 **Q1B Palindrome**
 
 Files: q1b.py, P1b_result.txt
+
+Execute command:
+
+`python3 q1b.py`
 
 **Q2 Palindrome**
 
