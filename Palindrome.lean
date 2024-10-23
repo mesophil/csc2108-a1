@@ -83,9 +83,8 @@ theorem palindrome_dup (xs : List Nat) : (k : Nat) -> isPalindrome xs → isPali
   intro k
   induction k with
   | zero =>
-    intro h
     simp [dup]
-    rfl
+    simp [isPalindrome]
   | succ k' ih =>
     intro h
     unfold dup
@@ -100,6 +99,7 @@ theorem palindrome_dup (xs : List Nat) : (k : Nat) -> isPalindrome xs → isPali
   TODO: prove that if some duplication of xs is a Palindrome, then xs itself is also a Palindrome.
 -/
 
+
 -- (2 points)
 theorem dup_palindrome_easy1 (xs : List Nat) : isPalindrome (dup 1 xs) -> isPalindrome xs := by
   unfold dup
@@ -108,14 +108,114 @@ theorem dup_palindrome_easy1 (xs : List Nat) : isPalindrome (dup 1 xs) -> isPali
 
 -- (3 points)
 theorem dup_palindrome_easy2 (xs : List Nat) : isPalindrome (dup 2 xs) -> isPalindrome xs := by
-  simp [isPalindrome, dup]
+  unfold dup
+  unfold isPalindrome
+  rw [assoc_dup]
+  simp
+  rw [← assoc_dup]
 
+  intro h
 
+  let a1 := xs ++ dup 1 xs
+  let a2 := xs.reverse ++ (dup 1 xs).reverse
+
+  have h0 : a1 = a2 := by
+    apply h
+
+  let l1 := List.take xs.length (xs ++ dup 1 xs)
+  let l2 := List.take xs.reverse.length (xs.reverse ++ (dup 1 xs).reverse)
+
+  have h1 : l1 = xs := by
+    apply List.take_left
+
+  have h2 : l2 = xs.reverse := by
+    apply List.take_left
+
+  have h3 : l1 = l2 := by
+    have : List.take xs.length a1 = List.take xs.length a2 := congrArg (List.take xs.length) h0
+    simp [a1, a2, h1, h2] at this
+    rw [← h2] at this
+    rw [← h1] at this
+    exact this
+
+  rw [h1] at h3
+  rw [h2] at h3
+  exact h3
 
 
 -- (5 points)
 theorem dup_palindrome_easy3 (xs : List Nat) : isPalindrome (dup 3 xs) -> isPalindrome xs := by
-  simp [isPalindrome]
+  unfold dup
+  unfold isPalindrome
+  rw [assoc_dup]
+  simp
+  rw [← assoc_dup]
+
+  intro h
+
+  let a1 := xs ++ dup 2 xs
+  let a2 := xs.reverse ++ (dup 2 xs).reverse
+
+  have h0 : a1 = a2 := by
+    apply h
+
+  let l1 := List.take xs.length (xs ++ dup 1 xs)
+  let l2 := List.take xs.reverse.length (xs.reverse ++ (dup 1 xs).reverse)
+
+  have h1 : l1 = xs := by
+    apply List.take_left
+
+  have h2 : l2 = xs.reverse := by
+    apply List.take_left
+
+  have h3 : l1 = l2 := by
+    have : List.take xs.length a1 = List.take xs.length a2 := congrArg (List.take xs.length) h0
+    simp [a1, a2, h1, h2] at this
+    rw [← h2] at this
+    rw [← h1] at this
+    exact this
+
+  rw [h1] at h3
+  rw [h2] at h3
+  exact h3
+
 
 -- (10 points)
-theorem dup_palindrome (xs : List Nat) (k : Nat) : (k > 0) -> isPalindrome (dup k xs) -> isPalindrome xs := sorry
+theorem dup_palindrome (xs : List Nat) (k : Nat) : (k > 0) -> isPalindrome (dup k xs) -> isPalindrome xs := by
+  induction k with
+  | zero =>
+    simp
+  | succ n =>
+    unfold dup
+    rw [assoc_dup]
+    unfold isPalindrome
+    simp
+    rw [← assoc_dup]
+
+    intro h
+
+    let a1 := xs ++ dup n xs
+    let a2 := xs.reverse ++ (dup n xs).reverse
+
+    have h0 : a1 = a2 := by
+      apply h
+
+    let l1 := List.take xs.length (xs ++ dup n xs)
+    let l2 := List.take xs.reverse.length (xs.reverse ++ (dup n xs).reverse)
+
+    have h1 : l1 = xs := by
+      apply List.take_left
+
+    have h2 : l2 = xs.reverse := by
+      apply List.take_left
+
+    have h3 : l1 = l2 := by
+      have : List.take xs.length a1 = List.take xs.length a2 := congrArg (List.take xs.length) h0
+      simp [a1, a2, h1, h2] at this
+      rw [← h2] at this
+      rw [← h1] at this
+      exact this
+
+    rw [h1] at h3
+    rw [h2] at h3
+    exact h3
